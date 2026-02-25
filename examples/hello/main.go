@@ -6,15 +6,14 @@ import (
 	"log/slog"
 
 	"github.com/go-minstack/core"
-	"github.com/go-minstack/logger"
 )
 
-func run(logger *slog.Logger) {
-	logger.Info("Hello from MinStack!", "app", "hello")
+func run(log *slog.Logger) {
+	log.Info("Hello from MinStack!", "app", "hello")
 }
 
 func main() {
-	app := core.New(logger.Module())
+	app := core.New()
 	app.Invoke(run)
 
 	ctx := context.Background()

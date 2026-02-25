@@ -15,8 +15,8 @@ import (
 //
 // Env vars:
 //
-//	LOG_LEVEL  — trace | debug | info | warn | error  (default: info)
-//	LOG_FORMAT — json | console                        (default: json)
+//	MINSTACK_LOG_LEVEL  — trace | debug | info | warn | error  (default: info)
+//	MINSTACK_LOG_FORMAT — json | console                        (default: json)
 func Module() fx.Option {
 	initLogger()
 	return fx.Options(
@@ -30,14 +30,14 @@ func newSlogLogger() *slog.Logger {
 }
 
 func initLogger() {
-	switch os.Getenv("LOG_FORMAT") {
+	switch os.Getenv("MINSTACK_LOG_FORMAT") {
 	case "console":
 		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 	default:
 		log.Logger = zerolog.New(os.Stderr).With().Timestamp().Logger()
 	}
 
-	switch os.Getenv("LOG_LEVEL") {
+	switch os.Getenv("MINSTACK_LOG_LEVEL") {
 	case "trace":
 		zerolog.SetGlobalLevel(zerolog.TraceLevel)
 	case "debug":
