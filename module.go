@@ -21,7 +21,9 @@ func Module() fx.Option {
 	initLogger()
 	return fx.Options(
 		fx.WithLogger(func() fxevent.Logger { return &fxZeroLogger{log.Logger} }),
-		fx.Provide(newSlogLogger),
+		fx.Module("logger",
+			fx.Provide(newSlogLogger),
+		),
 	)
 }
 
